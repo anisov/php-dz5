@@ -40,10 +40,10 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Авторизация</a></li>
-            <li><a href="reg.html">Регистрация</a></li>
-            <li><a href="list.html">Список пользователей</a></li>
-            <li><a href="filelist.html">Список файлов</a></li>
+            <li class="active"><a href="/">Авторизация</a></li>
+            <li><a href="registration">Регистрация</a></li>
+            <li><a href="userlist">Список пользователей</a></li>
+            <li><a href="filelist">Список файлов</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -52,19 +52,22 @@
     <div class="container">
     <h1>Запретная зона, доступ только авторизированному пользователю</h1>
       <h2>Информация выводится из списка файлов</h2>
+        <?= !empty($error) ? $error : '' ?>
       <table class="table table-bordered">
+          <?php foreach ($allUsers as $user):?>
         <tr>
           <th>Название файла</th>
           <th>Фотография</th>
           <th>Действия</th>
         </tr>
         <tr>
-          <td>1.jpg</td>
-          <td><img src="http://lorempixel.com/people/200/200/" alt=""></td>
+          <td><?=$user['photo']?></td>
+            <td><img width="100" height="100" style="object-fit: cover;" src="<?=$uploads_dir . '/' . $user['photo'] . '.jpg'?>" alt=""></td>
           <td>
-            <a href="">Удалить аватарку пользователя</a>
+            <a href="/filelist?delete=<?=$user['id']?>">Удалить аватарку пользователя</a>
           </td>
         </tr>
+          <?php endforeach;?>
       </table>
 
     </div><!-- /.container -->

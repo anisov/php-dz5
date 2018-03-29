@@ -40,47 +40,41 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Авторизация</a></li>
-            <li><a href="reg.html">Регистрация</a></li>
-            <li><a href="list.html">Список пользователей</a></li>
-            <li><a href="filelist.html">Список файлов</a></li>
+            <li class="active"><a href="/">Авторизация</a></li>
+            <li><a href="registration">Регистрация</a></li>
+            <li><a href="userlist">Список пользователей</a></li>
+            <li><a href="filelist">Список файлов</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
-
-      <div class="form-container">
-        <form class="form-horizontal" action="">
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Логин</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputEmail3" placeholder="Логин">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword3" placeholder="Пароль">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword4" class="col-sm-2 control-label">Пароль (Повтор)</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword4" placeholder="Пароль">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Зарегистрироваться</button>
-              <br><br>
-              Зарегистрированы? <a href="index.html">Авторизируйтесь</a>
-            </div>
-          </div>
-        </form>
-      </div>
-
+    <h1>Запретная зона, доступ только авторизированному пользователю</h1>
+      <h2>Информация выводится из базы данных</h2>
+        <?= !empty($error) ? $error : '' ?>
+      <table class="table table-bordered">
+          <?php foreach ($allUsers as $user):?>
+        <tr>
+          <th>Пользователь(логин)</th>
+          <th>Имя</th>
+          <th>возраст</th>
+          <th>описание</th>
+          <th>Фотография</th>
+          <th>Действия</th>
+        </tr>
+        <tr>
+          <td><?=$user['login']?></td>
+          <td><?=$user['name']?></td>
+          <td><?=$user['age']?></td>
+          <td><?=$user['description']?></td>
+          <td><img width="100" height="100" style="object-fit: cover;" src="<?=$uploads_dir . '/' . $user['photo'] . '.jpg'?>" alt=""></td>
+          <td>
+            <a href="/userlist?delete=<?=$user['id']?>">Удалить пользователя</a>
+          </td>
+        </tr>
+          <?php endforeach;?>
+      </table>
     </div><!-- /.container -->
 
 
